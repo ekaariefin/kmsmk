@@ -1,0 +1,10 @@
+Aplikasi ini menggunakan template AdminLTE 3
+---------------------------------------------
+https://adminlte.io/
+AdminLTE is an open source project by AdminLTE.io 
+that is licensed under MIT. AdminLTE.io reserves 
+the right to change the license of future releases.
+---------------------------------------------
+Dimodifikasi oleh:
+Eka Prasetyo Ariefin			
+https://github.com/ekaariefin/
