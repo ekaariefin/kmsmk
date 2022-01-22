@@ -70,7 +70,7 @@ if (isset($_POST['login'])) {
 
     <?php
     if (isset($_GET['message'])) {
-      if ($_GET['message'] == "wrong") {
+      if ($_GET['message'] == "proses_gagal") {
         echo "<div class='alert alert-danger' role='alert'>
                     Proses Login Gagal!
                   </div>";
@@ -113,7 +113,7 @@ if (isset($_POST['login'])) {
     <p class="mt-5 mb-3 text-muted">
       Knowledge Management System <br>
       Dinas Pendidikan Prov Sumatera Selatan <br>
-      &copy; 2021
+      &copy; <?php echo date('Y'); ?>
     </p>
   </form>
 </body>

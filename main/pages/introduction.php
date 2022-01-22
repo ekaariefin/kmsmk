@@ -80,6 +80,11 @@
         $add_new_user_point = $qpoint->get_point_score(10310);
         $add_point_score = $add_new_user_point['point_score'];
         $qpoint->add_point_new_user($_SESSION['user_id'], $add_point_score);
+        echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Berhasil Menambahkan Bonus Point Free Lunch!');
+            window.location.href='introduction.php';
+            </script>");
+
     }
   }
 

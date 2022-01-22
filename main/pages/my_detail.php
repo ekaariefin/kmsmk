@@ -63,7 +63,7 @@
 
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                  <b>Nomor Induk Siswa</b> <a class="float-right"><?php echo $user_show['user_id']; ?></a>
+                  <b>Nomor Induk Siswa</b> <a class="float-right"><?php echo $user_show['user_nip']; ?></a>
                 </li>
                 <li class="list-group-item">
                   <b>Kelas</b> <a class="float-right"><?php echo $user_show['class_name']; ?></a>
@@ -72,10 +72,7 @@
                   <b>Jenis Kelamin</b> <a class="float-right"><?php echo $user_show['user_gender']; ?></a>
                 </li>
                 <li class="list-group-item">
-                  <b>Jurusan</b> <a class="float-right">TKJ</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Sekolah</b> <a class="float-right">SMK Negeri 2 Palembang</a>
+                  <b>Sekolah</b> <a class="float-right"><?php echo $user_show['nama_sekolah']; ?></a>
                 </li>
               </ul>
               <a href="change_user_photo.php" type="button" class="btn btn-block btn-primary">Ganti Foto</a>
