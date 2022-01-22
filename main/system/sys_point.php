@@ -128,6 +128,7 @@ class point {
 	}
 
 	function transferpoint($current_user, $total_transfer, $receiver){
+		$catch_userid = 
 		$query = mysqli_query($this->conn->koneksi,"INSERT INTO db_point_transfer (user_id, total_point, friend_id) VALUES ($current_user, $total_transfer, $receiver)");
 		return $query;
 	}

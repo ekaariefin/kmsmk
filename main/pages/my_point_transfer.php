@@ -20,7 +20,12 @@
     $total_transfer = $_POST['total_transfer'];
     $current_user = $_SESSION['user_id'];
 
-    if($qpoint->transferpoint($current_user, $total_transfer, $receiver)){
+    $catch_receiver_id = $quser->catch_userid($receiver);
+    foreach($catch_receiver_id as $row) {
+          $receiver_id = $row['user_id'];
+      }
+
+    if($qpoint->transferpoint($current_user, $total_transfer, $receiver_id)){
       echo "<script LANGUAGE='JavaScript'>
             window.alert('Proses Transfer telah berhasil diverifikasi!');
             window.location.href='my_point_transfer.php?ex=".session_id()." '
