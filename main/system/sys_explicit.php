@@ -168,7 +168,7 @@ class explicit {
 			}
 		}
 
-	function tacit_share_to_friend($tanggal, $notif_sender, $notif_isi, $notif_receiver, $type){
+	function explicit_share_to_friend($tanggal, $notif_sender, $notif_isi, $notif_receiver, $type){
 		$query_add = mysqli_query ($this->conn->koneksi,
 				"INSERT into db_notif (tanggal, notif_sender, notif_isi, notif_receiver, type) 
 								VALUES ('$tanggal','$notif_sender','$notif_isi','$notif_receiver','$type')");

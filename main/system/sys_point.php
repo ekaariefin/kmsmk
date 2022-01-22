@@ -236,29 +236,38 @@ class point {
 	}
 
 
-	function addPointTacitSharing($tacit_id,$user_id,$via){
+	function addPointTacitSharing($tacit_id,$user_id){
 		$sql = mysqli_query($this->conn->koneksi, "SELECT user_id FROM db_tacit WHERE tacit_id = '$tacit_id'");
 		while ($row = $sql->fetch_assoc()) {
-			$owner = $row['user_id'];
 			date_default_timezone_set('Asia/Jakarta');
 			$date = date('d-m-Y H:i:s');
-			if($via == 'Tag'){
-   			$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified) VALUES ('$date','10309','$user_id','8888')");
-   			}
-   			if($via == 'QR'){
-   				$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified) VALUES ('$date','10303','$user_id','8888')");
-   			}
-   		}
+
+			$transcation_id = '10309';
+			$total_point = mysqli_query($this->conn->koneksi, "SELECT point_score FROM db_point WHERE point_id = '$transcation_id' ");
+
+			foreach($total_point as $row) {
+          	$point_gived = $row['point_score'];
+      	}
+
+   			$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified, total_point) VALUES ('$date','$transcation_id','$user_id','$user_id', '$point_gived')");
+		}
 		return $query;
 	}
 
 	function addPointExplicitSharing($explicit_id,$user_id){
 		$sql = mysqli_query($this->conn->koneksi, "SELECT user_id FROM db_explicit WHERE explicit_id = '$explicit_id'");
 		while ($row = $sql->fetch_assoc()) {
-			$owner = $row['user_id'];
 			date_default_timezone_set('Asia/Jakarta');
 			$date = date('d-m-Y H:i:s');
-   			$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified) VALUES ('$date','10309','$user_id','$user_id')");
+
+			$transcation_id = '10309';
+			$total_point = mysqli_query($this->conn->koneksi, "SELECT point_score FROM db_point WHERE point_id = '$transcation_id' ");
+
+			foreach($total_point as $row) {
+          	$point_gived = $row['point_score'];
+      	}
+
+   			$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified, total_point) VALUES ('$date','$transcation_id','$user_id','$user_id', '$point_gived')");
 		}
 		return $query;
 	}

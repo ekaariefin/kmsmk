@@ -43,10 +43,6 @@ $explicit_id = $_GET['id'];
     }
   }
 
-  if(isset($_GET['share'])){
-
-  }
-
   if(isset($_POST['sendTag'])){
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date('d F Y H:i:s');
@@ -56,9 +52,10 @@ $explicit_id = $_GET['id'];
     $type = "Explicit";
     if($qexplicit->explicit_share_to_friend($tanggal, $notif_sender, $notif_isi, $notif_receiver, $type))
       {
+        include "../system/sys_point.php";
         $qpoint = new point();
-        $via = 'Tag';
-        $qpoint->addPointExplicitSharing($_GET['id'],$_SESSION['user_id'],$via);
+        
+        $qpoint->addPointExplicitSharing($_GET['id'],$_SESSION['user_id']);
         echo ("<script LANGUAGE='JavaScript'>
             window.alert('Berhasil membagikan pengetahuan, Point bertambah +1');
             window.location.href='#';
@@ -106,7 +103,7 @@ $explicit_id = $_GET['id'];
             <div class="card card-widget">
               <div class="card-header">
                 <div class="user-block">
-                  <img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image">
+                  <img class="img-circle" src="../pages/files/user_photo/<?php echo $qexplicit_show['user_photo']; ?>" alt="User Image">
                   <span class="username"><?php echo $qexplicit_show['user_name']; ?></span>
                   <span class="description">Dipublikasikan pada <?php echo $qexplicit_show['explicit_date']; ?></span>
                 </div>
@@ -264,32 +261,9 @@ $explicit_id = $_GET['id'];
     </div>
     <div class="modal-body">
         <div class="callout callout-success">
-          <small>Potensi penambahan point sebanyak +3 Point dengan membagikan pengetahuan</small>
+          <small>Potensi penambahan point sebanyak +1 Point dengan membagikan pengetahuan</small>
         </div>
-          <?php
-              $cht = "qr";
-
-              // CHart Size
-              $chs = "200x200";
-
-              // CHart Link
-              // the url-encoded string you want to change into a QR code
-              $base = "http://".$_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']."";
-              // $base = "http://www.google.com/";
-              $chl = urlencode($base);
-
-              // CHart Output Encoding (optional)
-              // default: UTF-8
-              $choe = "UTF-8";
-
-              $qrcode = 'https://chart.googleapis.com/chart?cht=' . $cht . '&chs=' . $chs . '&chl=' . $chl . '&choe=' . $choe;
-            ?>
-            <center>
-              <!-- <img src="<?php echo $qrcode; ?>" alt="KMS TKJ SMKN 2 PLG"> -->
-              <p><center><?php echo $base; ?></center></p>
-            </center>
-
-            <p>bagikan dengan teman anda</p>
+            <p>bagikan pengetahuan dengan teman anda</p>
             <form action="" method="POST">
               <?php
                 $user_friend = $quser->list_friend($_SESSION['user_id']);
