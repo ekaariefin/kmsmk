@@ -80,6 +80,11 @@
         $add_new_user_point = $qpoint->get_point_score(10310);
         $add_point_score = $add_new_user_point['point_score'];
         $qpoint->add_point_new_user($_SESSION['user_id'], $add_point_score);
+        echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Berhasil Menambahkan Bonus Point Free Lunch!');
+            window.location.href='introduction.php';
+            </script>");
+
     }
   }
 
@@ -164,9 +169,22 @@
           
           <h5 style="margin-top: 15px; margin-bottom: 15px;"> Dapatkan Point Pertama Anda </h5>
           <p> Sebagai pengguna baru aplikasi KMS, kami berikan anda point awal sebesar 10 Point, Tambah dan Gunakan Point anda lalu tukarkan dengan berbagai pilihan penawaran </p>
-          <a type="button" href="introduction.php?message=ambil_bonus_point" class="btn btn-primary">
-            <i class="icon fas fa-plus"></i> Ambil Bonus Point
-          </a>
+
+          <?php
+            $getStatus = $qpoint->freeLunchStatus($_SESSION['user_id']);
+            if ($getStatus == "No Data"){
+              echo '
+                <a type="button" href="introduction.php?message=ambil_bonus_point" class="btn btn-primary">
+                  <i class="icon fas fa-plus"></i> Ambil Bonus Point
+                </a>';
+              }
+              else {
+                echo '<button type="button" class="btn btn-primary" disabled>
+                  <i class="icon fas fa-plus"></i> Ambil Bonus Point
+                </a>';
+              }
+          ?>
+          
         </div>
       </div>
     </section>

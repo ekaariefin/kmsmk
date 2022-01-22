@@ -36,7 +36,7 @@ if (isset($_POST['login'])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Login | KMS TKJ SMK Negeri 2 Palembang</title>
+  <title>Login KMS | SMK Provinsi Sumatera Selatan</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
 
@@ -70,7 +70,7 @@ if (isset($_POST['login'])) {
 
     <?php
     if (isset($_GET['message'])) {
-      if ($_GET['message'] == "wrong") {
+      if ($_GET['message'] == "proses_gagal") {
         echo "<div class='alert alert-danger' role='alert'>
                     Proses Login Gagal!
                   </div>";
@@ -113,7 +113,7 @@ if (isset($_POST['login'])) {
     <p class="mt-5 mb-3 text-muted">
       Knowledge Management System <br>
       Dinas Pendidikan Prov Sumatera Selatan <br>
-      &copy; 2021
+      &copy; <?php echo date('Y'); ?>
     </p>
   </form>
 </body>

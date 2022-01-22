@@ -24,7 +24,7 @@ class user {
 	// menampilkan detail data siswa
 	function user_detail($user_id)
 	{
-		$data = mysqli_query($this->conn->koneksi,"SELECT db_user.user_id, db_user.user_nip, db_user.user_nip, db_user.user_name, db_user.user_gender, db_user.user_photo, db_user.user_role, db_class.class_name, db_login_activity.activity_date, db_sekolah.nama_sekolah FROM db_user INNER JOIN db_class_trans ON db_user.user_id = db_class_trans.user_id INNER JOIN db_class ON db_class_trans.class_id = db_class.class_id INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn LEFT OUTER JOIN db_login_activity ON db_login_activity.user_id = db_user.user_id WHERE db_user.user_id='$user_id' ORDER BY db_login_activity.activity_date DESC LIMIT 1");
+		$data = mysqli_query($this->conn->koneksi,"SELECT db_user.user_id, db_user.user_nip, db_user.user_name, db_user.user_gender, db_user.user_photo, db_user.user_role, db_class.class_name, db_login_activity.activity_date, db_sekolah.nama_sekolah FROM db_user INNER JOIN db_class_trans ON db_user.user_id = db_class_trans.user_id INNER JOIN db_class ON db_class_trans.class_id = db_class.class_id INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn LEFT OUTER JOIN db_login_activity ON db_login_activity.user_id = db_user.user_id WHERE db_user.user_id='$user_id' ORDER BY db_login_activity.activity_date DESC LIMIT 1");
 		return $data->fetch_array();
 	}
 
@@ -303,7 +303,7 @@ class user {
 // admin pusat
 	function admin_pusat_guru_list()
 	{
-		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Guru'");
+		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Guru' GROUP BY user_name");
 		while($row = mysqli_fetch_array($data)){
 			$tampil[] = $row;
 		}
@@ -312,7 +312,7 @@ class user {
 
 	function admin_pusat_user_list()
 	{
-		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Siswa'");
+		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Siswa' GROUP BY user_name");
 		while($row = mysqli_fetch_array($data)){
 			$tampil[] = $row;
 		}

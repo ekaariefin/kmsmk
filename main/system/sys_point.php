@@ -128,7 +128,6 @@ class point {
 	}
 
 	function transferpoint($current_user, $total_transfer, $receiver){
-		$catch_userid = 
 		$query = mysqli_query($this->conn->koneksi,"INSERT INTO db_point_transfer (user_id, total_point, friend_id) VALUES ($current_user, $total_transfer, $receiver)");
 		return $query;
 	}
@@ -246,8 +245,8 @@ class point {
 			$total_point = mysqli_query($this->conn->koneksi, "SELECT point_score FROM db_point WHERE point_id = '$transcation_id' ");
 
 			foreach($total_point as $row) {
-          	$point_gived = $row['point_score'];
-      	}
+          		$point_gived = $row['point_score'];
+      		}
 
    			$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified, total_point) VALUES ('$date','$transcation_id','$user_id','$user_id', '$point_gived')");
 		}
@@ -307,7 +306,28 @@ class point {
 	function add_point_new_user($user_id, $total_point){
 		date_default_timezone_set('Asia/Jakarta');
 		$date = date('d-m-Y H:i:s');
-		$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified, total_point) VALUES ('$date','10310','$user_id','8888','$total_point')");
+		$transcation_id = '10310';
+		$total_point = mysqli_query($this->conn->koneksi, "SELECT point_score FROM db_point WHERE point_id = '$transcation_id' ");
+
+		foreach($total_point as $row) {
+      		$point_gived = $row['point_score'];
+		}
+
+		$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified, total_point) VALUES ('$date','10310','$user_id','422','$point_gived')");
+		return $query;
+	}
+
+	function freeLunchStatus($user_id){
+		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_point_trans WHERE user_id = '$user_id' AND point_id = '10310'");
+		while($row = mysqli_fetch_array($data)){
+			$tampil[] = $row;
+		}
+		if (empty($tampil)){
+			return "No Data";
+		}
+		else{
+			return $tampil;
+		}
 	}
 
 

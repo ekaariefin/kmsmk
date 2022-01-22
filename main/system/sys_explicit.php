@@ -227,6 +227,11 @@ class explicit {
 		return $query->fetch_array();
 	}
 
+	function getKnowledgeDetail($explicit_id){
+		$query = mysqli_query($this->conn->koneksi, "SELECT * FROM db_explicit WHERE explicit_id='$explicit_id'");
+			return $query->fetch_array();
+	}
+
 	function editExplicit($id, $explicit_name, $explicit_desc){
 		$query = mysqli_query($this->conn->koneksi,"UPDATE db_explicit SET explicit_name='$explicit_name', explicit_desc='$explicit_desc' WHERE explicit_id='$id'");
 		return $query;

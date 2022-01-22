@@ -11,7 +11,7 @@ class sekolah
 
     function show_school()
     {
-        $data = mysqli_query($this->conn->koneksi, "SELECT * FROM db_sekolah");
+        $data = mysqli_query($this->conn->koneksi, "SELECT * FROM db_sekolah GROUP BY nama_sekolah");
         while ($row = mysqli_fetch_array($data)) {
             $tampil[] = $row;
         }

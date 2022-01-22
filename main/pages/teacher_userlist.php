@@ -57,6 +57,11 @@
                   </thead>
                   <tbody>
                   <?php
+                    $no = 1;
+                    if($quser_list == "No Data"){
+                      echo "";
+                    }
+                    else{
                     foreach($quser_list as $row) {
                   ?>
                   <tr>
@@ -73,7 +78,7 @@
                     <td><a href="teacher_show_siswadetail.php?id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-block btn-sm btn-info">Detail</a></td>
                   </tr>
                   <?php
-                    }
+                    }}
                   ?>
                   </tbody>
                   <tfoot>
