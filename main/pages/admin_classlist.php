@@ -10,6 +10,10 @@
     if($_GET['action'] =='delete'){
       $class_id = $_GET['id'];
       $qsekolah->delete_class($class_id);
+      echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Berhasil Menghapus Kelas!');
+            window.location.href='admin_classlist.php?ex".session_id()."';
+            </script>");
     }
   }
 ?>

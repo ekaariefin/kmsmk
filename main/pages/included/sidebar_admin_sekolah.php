@@ -55,6 +55,29 @@
                         </li>
                     </ul>
                 </li>
+                <!-- <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-hourglass-start"></i>
+                        <p>
+                            Verifikasi Knowledge
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="pimpinan_show_pend_tacit.php?ex=<?php echo session_id() ?>" class="nav-link">
+                                <i class="fa fa-file-alt nav-icon"></i>
+                                <p>Tacit Knowledge</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pimpinan_show_pend_explicit.php?ex=<?php echo session_id() ?>" class="nav-link">
+                                <i class="fa fa-file-archive nav-icon"></i>
+                                <p>Explicit Knowledge</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-graduate"></i>

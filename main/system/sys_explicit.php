@@ -188,6 +188,12 @@ class explicit {
 		return $query;
 	}
 
+	function setReject($explicit_id){
+		$query = mysqli_query ($this->conn->koneksi,
+				"UPDATE db_explicit SET explicit_status = 'Reject' WHERE explicit_id='$explicit_id'");
+		return $query;
+	}
+
 	function count_explicit_like($explicit_id){
 		$query = mysqli_query($this->conn->koneksi,"SELECT * FROM db_explicit_like WHERE explicit_id='$explicit_id'");
 		$hitung = mysqli_num_rows($query);

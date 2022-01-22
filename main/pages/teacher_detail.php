@@ -1,6 +1,6 @@
 <?php
   session_start();
-  // error_reporting(0);
+  error_reporting(0);
   include_once('../system/sys_user.php');
   $quser = new user();
   $user_show = $quser->teacher_detail($_SESSION['user_id']);
@@ -63,7 +63,7 @@
 
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                  <b>Nomor Induk Siswa</b> <a class="float-right"><?php echo $user_show['user_id']; ?></a>
+                  <b>Nomor Induk</b> <a class="float-right"><?php echo $user_show['user_id']; ?></a>
                 </li>
                 <li class="list-group-item">
                   <b>Jenis Kelamin</b> <a class="float-right"><?php echo $user_show['user_gender']; ?></a>

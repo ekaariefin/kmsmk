@@ -109,8 +109,6 @@ if (isset($_POST['login'])) {
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Login</button>
     <hr>
-    <p>Lupa Password? <a href="login.php?message=reset_password"> Klik Disini</a></p>
-    <p>Belum Memiliki Akun? <a href="login.php?message=register"> Daftar Sekarang</a></p>
 
     <p class="mt-5 mb-3 text-muted">
       Knowledge Management System <br>

@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>KMS APP | TKJ SMK Negeri 2 Palembang</title>
+  <title>KMS | SMK Provinsi Sumatera Selatan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">

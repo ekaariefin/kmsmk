@@ -8,21 +8,24 @@
   $adminid = $_SESSION['user_id'];
   if(isset($_POST['addUser']))
   {
-    $user_id      = $_POST['user_id'];
+    $user_nip     = $_POST['user_nip'];
     $user_name    = $_POST['user_name'];
     $user_gender  = $_POST['user_gender'];
     $user_photo   = "blank.jpg";
     $user_role    = "Siswa";
-    $user_password  = md5($user_id);
+    $user_password  = md5($user_nip);
+    $npsn         = $_SESSION['npsn_login'];
     $class_id     = $_POST['class_id'];
 
-    if($quser->add_new_user($user_id, $user_name, $user_gender, $user_photo, $user_role, $user_password)){
+    if($quser->add_new_user($user_nip, $user_name, $user_gender, $user_photo, $user_role, $npsn, $user_password)){
 
-      // $add_registered_point = $qpoint->get_point_score(10310);
-      // $point_score = $add_registered_point['point_score'];
-      // $qpoint->addPointRegistered($user_id,$adminid,$point_score);
 
-      if($quser->add_new_student_class($user_id, $class_id)){
+      $catch = $quser->catch_userid($user_nip);
+      foreach($catch as $row) {
+          $current_userid = $row['user_id'];
+      }
+
+      if($quser->add_new_student_class($current_userid, $class_id)){
       header("location: admin_add_user.php?&message=Success");
       }
     }
@@ -44,20 +47,30 @@
     $queue = 0;
     for ($i=2; $i<=$jumlah_baris; $i++){
 
-    $user_id     = $data->val($i, 1);
+    $user_nip     = $data->val($i, 1);
     $user_name   = $data->val($i, 2);
     $user_gender  = $data->val($i, 3);
     $user_photo   = "blank.jpg";
     $user_role    = "Siswa";
-    $user_password  = md5($user_id);
+    $user_password  = md5($user_nip);
+    $npsn = $_SESSION['npsn_login'];
     $user_class   = $data->val($i, 4);
 
-    if($user_id != "" && $user_name != "" && $user_gender != ""){
-      $quser->bulk_upload_user($user_id,$user_name,$user_gender,$user_photo,$user_role,$user_password);
-      $quser->bulk_upload_class($user_id,$user_class);
-      $add_registered_point = $qpoint->get_point_score(10310);
-      $point_score = $add_registered_point['point_score'];
-      $qpoint->addPointRegistered($user_id,$adminid,$point_score);
+    if($user_nip != "" && $user_name != "" && $user_gender != ""){
+      $quser->bulk_upload_user($user_nip,$user_name,$user_gender,$user_photo,$user_role,$npsn,$user_password);
+      
+      $catch = $quser->catch_userid($user_nip);
+      foreach($catch as $row) {
+          $current_userid = $row['user_id'];
+      }
+
+      $catch_class_id = $quser->catch_classid($user_class,$npsn);
+      foreach($catch_class_id as $row) {
+          $current_class = $row['class_id'];
+      }
+    
+      $quser->bulk_upload_class($current_userid,$current_class);
+      
       $queue++;
     }
 }
@@ -149,7 +162,7 @@ unlink($_FILES['mass_files']['name']);
                 <div class="card-body">
                   <div class="form-group">
                     <label for="user_id">Nomor Induk Siswa</label>
-                    <input type="text" name="user_id" class="form-control" autocomplete="off" placeholder="Masukkan Nomor Induk Siswa..">
+                    <input type="text" name="user_nip" class="form-control" autocomplete="off" placeholder="Masukkan Nomor Induk Siswa..">
                   </div>
 
                   <div class="form-group">

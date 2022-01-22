@@ -71,7 +71,9 @@ class user {
 	// menampilkan seluruh list data siswa
 	function user_list($npsn_login)
 	{
-		$data = mysqli_query($this->conn->koneksi,"SELECT db_user.user_id, db_user.user_name, db_user.user_gender, db_user.user_photo, db_class.class_name, db_sekolah.nama_sekolah FROM db_user INNER JOIN db_class_trans ON db_user.user_id = db_class_trans.user_id INNER JOIN db_class ON db_class_trans.class_id = db_class.class_id INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn  WHERE db_user.npsn = $npsn_login AND db_user.user_role = 'Siswa'");
+		$data = mysqli_query($this->conn->koneksi,"SELECT db_user.user_id, db_user.user_nip, db_user.user_name, db_user.user_gender, db_user.user_photo, db_sekolah.nama_sekolah, db_class.class_name FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn INNER JOIN db_class_trans ON db_user.user_id = db_class_trans.user_id INNER JOIN db_class ON db_class_trans.class_id = db_class.class_id WHERE db_user.npsn = $npsn_login AND db_user.user_role = 'Siswa' GROUP BY db_user.user_name ORDER BY `db_user`.`user_id` ASC; ");
+
+		
 		while($row = mysqli_fetch_array($data)){
 			$tampil[] = $row;
 		}
@@ -81,6 +83,22 @@ class user {
 		else{
 			return $tampil;
 		}
+	}
+
+	function catch_userid($user_nip){
+		$data = mysqli_query($this->conn->koneksi,"SELECT user_id FROM db_user WHERE user_nip = '$user_nip' ");
+		while($row = mysqli_fetch_array($data)){
+			$tampil[] = $row;
+		}
+		return $tampil;
+	}
+
+	function catch_classid($user_class,$npsn){
+		$data = mysqli_query($this->conn->koneksi,"SELECT class_id FROM db_class WHERE class_name = '$user_class' AND npsn = '$npsn' ");
+		while($row = mysqli_fetch_array($data)){
+			$tampil[] = $row;
+		}
+		return $tampil;
 	}
 
 	// menampilkan seluruh list data siswa yang diblokir
@@ -118,7 +136,7 @@ class user {
 	// menampilkan seluruh akun guru
 	function guru_list($npsn_login)
 	{
-		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Guru' AND db_sekolah.npsn = '$npsn_login'");
+		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Guru' AND db_sekolah.npsn = '$npsn_login' GROUP BY user_name");
 		while($row = mysqli_fetch_array($data)){
 			$tampil[] = $row;
 		}
@@ -205,11 +223,17 @@ class user {
 	// menampilkan daftar teman dari user yg bersangkutan
 	function list_mapel($user_id){
 		$data = mysqli_query ($this->conn->koneksi, "SELECT * FROM db_gurumapel INNER JOIN db_mapel ON db_gurumapel.mapel_id = db_mapel.mapel_id WHERE db_gurumapel.user_id = '$user_id' ");
-			while($row = mysqli_fetch_array($data)){
+		while($row = mysqli_fetch_array($data)){
 			$tampil[] = $row;
 		}
-		return $tampil;
+		if (empty($tampil)){
+			return "No Data";
+		}
+		else{
+			return $tampil;
+		}
 	}
+	
 
 	function find_user($user_nip){
 		$data = mysqli_query ($this->conn->koneksi, "SELECT db_user.user_id, db_user.user_name, db_user.user_gender, db_user.user_photo, db_class.class_name FROM db_user INNER JOIN db_class_trans ON db_class_trans.user_id =db_user.user_id INNER JOIN db_class ON db_class.class_id = db_class_trans.class_id WHERE db_user.user_nip ='$user_nip'");
@@ -238,13 +262,13 @@ class user {
 		return $query;
 	}
 
-	function bulk_upload_user($user_id,$user_name,$user_gender,$user_photo,$user_role,$user_password){
-		$query = mysqli_query ($this->conn->koneksi, "INSERT INTO db_user VALUES ('$user_id','$user_name','$user_gender','$user_photo','$user_role','$user_password')");
+	function bulk_upload_user($user_nip,$user_name,$user_gender,$user_photo,$user_role,$npsn,$user_password){
+		$query = mysqli_query ($this->conn->koneksi, "INSERT INTO db_user VALUES ('','$user_nip','$user_name','$user_gender','$user_photo','$user_role','$npsn','$user_password')");
 		return $query;
 	}
 
-	function bulk_upload_class($user_id,$user_class){
-		$query = mysqli_query ($this->conn->koneksi, "INSERT INTO db_class VALUES ('','$user_id','$user_class')");
+	function bulk_upload_class($current_userid,$current_class){
+		$query = mysqli_query ($this->conn->koneksi, "INSERT INTO `db_class_trans`(`trans_id`, `user_id`, `class_id`) VALUES ('','$current_userid','$current_class')");
 		return $query;
 	}
 

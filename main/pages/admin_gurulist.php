@@ -61,7 +61,7 @@
                         <img class="img-fluid img-circle" src="files/user_photo/<?php echo $row['user_photo']; ?>" style="width: 30px; height: 30px;"></td>
                       </center>
                     </td>
-                    <td><?php echo $row['user_id']; ?></td>
+                    <td><?php echo $row['user_nip']; ?></td>
                     <td><?php echo $row['user_name']; ?></td>
                     <td><?php echo $row['nama_sekolah']; ?></td>
                     <td><a href="admin_show_gurudetail.php?id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-block btn-sm btn-info">Detail</a></td>

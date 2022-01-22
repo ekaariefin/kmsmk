@@ -18,6 +18,14 @@
   }
 
   if (isset($_GET['action'])){
+    if ($_GET['action'] == "setReject"){
+        $qexplicit->setReject($_GET['id']);
+        echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Pengetahuan berhasil direject!');
+            window.location.href='admin_show_pend_explicit.php?ex=".session_id()."';
+            </script>");
+     }
+     else if ($_GET['action'] == "setApproval"){
     $qexplicit->setApproval($_GET['id']);
         $add_explicit_point = $qpoint->get_point_score(10302);
         $add_explicit_point_score = $add_explicit_point['point_score'];
@@ -59,6 +67,7 @@
             window.location.href='#';
             </script>");
     }
+  }
   
 ?>
 
@@ -162,9 +171,7 @@
 
                          <a href="admin_show_pend_explicit.php?id=<?php echo $row['explicit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&publisher_id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>&action=setApproval" type="button" class="btn btn-success btn-sm" style="margin-right: 5px;"><i class="fas fa-check-circle"></i></a>
 
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default">
-                          <i class="fas fa-times-circle"></i>
-                        </button>
+                        <a href="admin_show_pend_explicit.php?id=<?php echo $row['explicit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&publisher_id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>&action=setReject" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;"> <i class="fas fa-times-circle"></i></a>
                       </center>
                     </td>
                   </tr>

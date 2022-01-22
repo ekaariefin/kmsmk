@@ -62,7 +62,7 @@ if (isset($_GET['delUser']))
                 <td rowspan="5" style="width: 20%"><img src="files/user_photo/<?php echo $user_show['user_photo']; ?>" style="width: 160px; height: 200px"></td>
               <tr>
                 <td style="width: 30%;">Nomor Induk Pegawai</td>
-                <td style="width: 50%;"><?php echo $user_show['user_id']; ?></td>
+                <td style="width: 50%;"><?php echo $user_show['user_nip']; ?></td>
               </tr>
               <tr>
                 <td>Nama Lengkap</td>

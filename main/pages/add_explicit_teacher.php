@@ -9,7 +9,7 @@
       $explicit_name   = $_POST['explicit_name'];
       $explicit_desc   = $_POST['explicit_desc'];
       $explicit_date   = date('d F Y');
-      $explicit_status = "Pending Pimpinan";
+      $explicit_status = "Approve";
       $explicit_source = $_POST['explicit_source'];
       $user_id      = $_SESSION['user_id'];
       $mapel_id      = $_POST['mapel_id'];
@@ -20,6 +20,7 @@
       $size = $_FILES['explicit_file']['size'];
       $type = $_FILES['explicit_file']['type'];
       $folder = "files/";
+      
 
       // pengecekan ukuran file (maksimal 10mb)
       if ($size < 20048000){
@@ -27,6 +28,7 @@
         if($qexplicit->explicit_add($explicit_name, $explicit_desc, $explicit_date, $explicit_status, $explicit_source, $explicit_file, $user_id, $mapel_id))
         {
           header('location:my_explicit_teacher.php?ex='.session_id().'');
+          
         }
       }else{
         echo "<b>Gagal Upload</b>";

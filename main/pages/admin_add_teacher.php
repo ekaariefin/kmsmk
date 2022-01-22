@@ -11,7 +11,7 @@
     $user_photo   = "blank.jpg";
     $npsn         = $_POST['npsn'];
     $user_role    = "Guru";
-    $user_password  = md5($user_id);
+    $user_password  = md5($user_nip);
 
     if($quser->add_new_user($user_nip, $user_name, $user_gender, $user_photo, $user_role, $npsn, $user_password)){
       header("location: admin_add_teacher.php?&message=Success");

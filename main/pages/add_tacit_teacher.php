@@ -10,7 +10,7 @@
       $tacit_date   = date('d F Y');
       $tacit_name   = $_POST['tacit_name'];
       $tacit_desc   = $_POST['tacit_desc'];
-      $tacit_status = "Pending Pimpinan";
+      $tacit_status = "Approve";
       $mapel_id      = $_POST['mapel_id'];
       $tacit_source = $_POST['tacit_source'];
       $user_id      = $_SESSION['user_id'];

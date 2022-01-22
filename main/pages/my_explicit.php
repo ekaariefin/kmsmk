@@ -89,7 +89,6 @@
                     <th>Publish Date</th>
                     <th>Judul Knowledge</th>
                     <th>Status</th>
-                    <th>Point</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
@@ -107,7 +106,6 @@
                     <td><?php echo $row['explicit_date']; ?></td>
                     <td><?php echo $row['explicit_name']; ?></td>
                     <td><?php echo $row['explicit_status']; ?></td>
-                    <td>+5</td>
                     <td><a href="show_my_explicit.php?id=<?php echo $row['explicit_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-sm btn-block btn-info"><i class="fas fa-info-circle"></i> Detail</a></td>
                   </tr>
                   <?php
@@ -121,7 +119,6 @@
                     <th>Publish Date</th>
                     <th>Judul Knowledge</th>
                     <th>Status</th>
-                    <th>Point</th>
                     <th>Aksi</th>
                   </tr>
                   </tfoot>

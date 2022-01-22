@@ -18,7 +18,14 @@
   }
 
   if (isset($_GET['action'])){
-     if ($_GET['action'] == "setApproval"){
+     if ($_GET['action'] == "setReject"){
+        $qtacit->setReject($_GET['id']);
+        echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Pengetahuan berhasil direject!');
+            window.location.href='admin_show_pend_tacit.php?ex=".session_id()."';
+            </script>");
+     }
+     else if ($_GET['action'] == "setApproval"){
         $qtacit->setApproval($_GET['id']);
         $add_tacit_point = $qpoint->get_point_score(10301);
         $add_tacit_point_score = $add_tacit_point['point_score'];
@@ -60,6 +67,8 @@
             window.location.href='admin_show_pend_tacit.php?ex=".session_id()."';
             </script>");
     }
+
+    
   }
 
 ?>
@@ -162,10 +171,9 @@
                         <a href="show_tacit.php?id=<?php echo $row['tacit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-info btn-sm" style="margin-right: 5px;"><i class="fas fa-external-link-alt"></i></a>
 
                         <a href="admin_show_pend_tacit.php?id=<?php echo $row['tacit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&publisher_id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>&action=setApproval" type="button" class="btn btn-success btn-sm" style="margin-right: 5px;"><i class="fas fa-check-circle"></i></a>
+
+                        <a href="admin_show_pend_tacit.php?id=<?php echo $row['tacit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&publisher_id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>&action=setReject" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;"> <i class="fas fa-times-circle"></i></a>
                         
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default">
-                          <i class="fas fa-times-circle"></i>
-                        </button>
                       </center>
                     </td>
                   </tr>
@@ -219,82 +227,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 
-
-
-
-<div class="modal fade" id="modal-default">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Form Penolakan Knowledge</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <strong>Detail Knowledge</strong>
-          <table class="table table-bordered" style="margin-bottom: 30px">
-            <tbody>
-              <tr>
-                <td width="30%">No.Reg</td>
-                <td width="70%"><?php echo $row['tacit_id']; ?></td>
-              </tr>
-               <tr>
-                <td width="30%">Tgl.Posting</td>
-                <td width="70%"><?php echo $row['tacit_date']; ?></td>
-              </tr>
-              <tr>
-                <td>Judul </td>
-                <td><?php echo $row['tacit_name']; ?></td>
-              </tr>
-              <tr>
-                <td>Author</td>
-                <td><?php echo $row['user_name']; ?> (<?php echo $row['user_class']; ?>) </td>
-              </tr>
-              <form action="" method="GET">
-              <tr>
-                <td>Alasan Penolakan</td>
-                <td>
-                  <select name="knowledge_reason" class="form-control">
-                    <option selected disabled>--Pilih Alasan--</option>
-                    <option>Knowledge Telah Ada</option>
-                    <option>Knowledge Telah Usang</option>
-                    <option>Knowledge Tidak Dimengerti</option>
-                    <option>Terdeteksi Plagiat</option>
-                    <option>Alasan Lainnya</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>Total Pengurangan Point</td>
-                <td>
-                  <select name="knowledge_point" class="form-control">
-                    <option>0</option>
-                    <option>-5</option>
-                    <option>-10</option>
-                    <option>-15</option>
-                    <option>-20</option>
-                  </select>
-                </td>
-              </tr>
-
-              <input type="hidden" name="tacit_id" value="<?php echo $row['tacit_name']; ?>">
-              <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-
-            </tbody>
-          </table>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" name="proses_tolak" class="btn btn-primary">Proses</a>
-      </div>
-    </form>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 
 </body>
 </html>

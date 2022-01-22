@@ -9,6 +9,10 @@
   if(isset($_GET['delmapel'])){
     $mapel_id = $_GET['delmapel'];
     $qmp->delmapel($mapel_id);
+    echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Berhasil Menghapus Mata Pelajaran!');
+            window.location.href='admin_mplist.php?ex".session_id()."';
+            </script>");
   }
 ?>
 <!DOCTYPE html>

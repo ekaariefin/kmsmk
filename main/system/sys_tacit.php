@@ -180,6 +180,12 @@ class tacit {
 		return $query;
 	}
 
+	function setReject($tacit_id){
+		$query = mysqli_query ($this->conn->koneksi,
+				"UPDATE db_tacit SET tacit_status = 'Reject' WHERE tacit_id='$tacit_id'");
+		return $query;
+	}
+
 	function count_tacit_like($tacit_id){
 		$query = mysqli_query($this->conn->koneksi,"SELECT * FROM db_tacit_like WHERE tacit_id='$tacit_id'");
 		$hitung = mysqli_num_rows($query);

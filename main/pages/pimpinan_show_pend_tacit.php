@@ -9,7 +9,7 @@
   $qmp = new other();
   $qtacit = new tacit();
   $qpoint = new point();
-  $qmp_list = $qmp->mp_list();
+  $qmp_list = $qmp->mp_list($_SESSION['npsn_login']);
 
    if(isset($_GET['mpid'])){
     $show = $qtacit->tacit_list_mp_teacher($_GET['mpid']);
@@ -18,13 +18,22 @@
     $show = $qtacit->tacit_list_all_teacher();
   }
 
-  if (isset($_GET['action'])){
+ if (isset($_GET['action'])){
+     if ($_GET['action'] == "setReject"){
+        $qtacit->setReject($_GET['id']);
+        echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Pengetahuan berhasil direject!');
+            window.location.href='pimpinan_show_pend_tacit.php?ex=".session_id()."';
+            </script>");
+     }
+     else if ($_GET['action'] == "setApproval"){
     $qtacit->setApproval($_GET['id']);
         echo ("<script LANGUAGE='JavaScript'>
             window.alert('Knowledge berhasil disetujui!');
             window.location.href='pimpinan_show_pend_tacit.php?ex".session_id()."';
             </script>");
     }
+  }
   
 ?>
 
@@ -120,13 +129,12 @@
                     <td><?php echo $row['tacit_name']; ?></td>
                     <td>
                       <center>
-                        <a href="pimpinan_show_pend_tacit.php?id=<?php echo $row['tacit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-info btn-sm" style="margin-right: 5px;"><i class="fas fa-external-link-alt"></i></a>
+                        <a href="pimpinan_show_tacit.php?id=<?php echo $row['tacit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-info btn-sm" style="margin-right: 5px;"><i class="fas fa-external-link-alt"></i></a>
 
                          <a href="pimpinan_show_pend_tacit.php?id=<?php echo $row['tacit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&publisher_id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>&action=setApproval" type="button" class="btn btn-success btn-sm" style="margin-right: 5px;"><i class="fas fa-check-circle"></i></a>
 
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default">
-                          <i class="fas fa-times-circle"></i>
-                        </button>
+                         <a href="pimpinan_show_pend_tacit.php?id=<?php echo $row['tacit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&publisher_id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>&action=setReject" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;"><i class="fas fa-times-circle"></i></a>
+
                       </center>
                     </td>
                   </tr>

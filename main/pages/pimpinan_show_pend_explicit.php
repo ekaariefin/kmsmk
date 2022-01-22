@@ -9,7 +9,7 @@
   $qmp = new other();
   $qexplicit = new explicit();
   $qpoint = new point();
-  $qmp_list = $qmp->mp_list();
+  $qmp_list = $qmp->mp_list($_SESSION['npsn_login']);
 
    if(isset($_GET['mpid'])){
     $show = $qexplicit->explicit_list_mp_teacher($_GET['mpid']);
@@ -18,13 +18,22 @@
     $show = $qexplicit->explicit_list_all_teacher();
   }
 
-  if (isset($_GET['action'])){
+if (isset($_GET['action'])){
+     if ($_GET['action'] == "setReject"){
+        $qexplicit->setReject($_GET['id']);
+        echo ("<script LANGUAGE='JavaScript'>
+            window.alert('Pengetahuan berhasil direject!');
+            window.location.href='admin_show_pend_tacit.php?ex=".session_id()."';
+            </script>");
+     }
+     else if ($_GET['action'] == "setApproval"){
     $qexplicit->setApproval($_GET['id']);
         echo ("<script LANGUAGE='JavaScript'>
             window.alert('Knowledge berhasil disetujui!');
             window.location.href='pimpinan_show_pend_explicit.php?ex".session_id()."';
             </script>");
     }
+  }
   
 ?>
 
@@ -120,12 +129,12 @@
                     <td><?php echo $row['explicit_name']; ?></td>
                     <td>
                       <center>
-                        <a href="pimpinan_show_pend_explicit.php?id=<?php echo $row['explicit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-info btn-sm" style="margin-right: 5px;"><i class="fas fa-external-link-alt"></i></a>
+                        <a href="pimpinan_show_explicit.php?id=<?php echo $row['explicit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-info btn-sm" style="margin-right: 5px;"><i class="fas fa-external-link-alt"></i></a>
 
                          <a href="pimpinan_show_pend_explicit.php?id=<?php echo $row['explicit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&publisher_id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>&action=setApproval" type="button" class="btn btn-success btn-sm" style="margin-right: 5px;"><i class="fas fa-check-circle"></i></a>
 
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default">
-                          <i class="fas fa-times-circle"></i>
+                          <a href="pimpinan_show_pend_explicit.php?id=<?php echo $row['explicit_id']; ?>&mpid=<?php echo $row['mapel_id']; ?>&publisher_id=<?php echo $row['user_id']; ?>&ex=<?php echo session_id() ?>&action=setReject" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;"><i class="fas fa-times-circle"></i></a>
+
                         </button>
                       </center>
                     </td>
@@ -180,22 +189,3 @@
 <script src="../dist/js/demo.js"></script>
 </body>
 </html>
-
-
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
