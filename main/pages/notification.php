@@ -74,16 +74,16 @@
             ?>
             <tr>
               <td><?php echo $no++; ?></td>
-              <td><?php echo $row['tanggal']; ?></td>
-              <td width='80%'>
+              <td width='20%'><small><?php echo $row['tanggal']; ?></small></td>
+              <td width='70%'>
               <?php
               if($row['type'] == "Tacit"){
                   echo ucwords(strtolower($row['user_name']))." membagikan pengetahuan <b>".
-                  $getKnowledgeDetail['tacit_name']."</b> kepada anda <a href='show_tacit.php?id=".$getKnowledgeDetail['tacit_id']."&ex=".session_id()."'>[ Cek Disini ]</a>";
+                  $getKnowledgeDetail['tacit_name']."</b> kepada anda <a href='show_tacit.php?id=".$getKnowledgeDetail['tacit_id']."&ex=".session_id()."'>[Cek Disini]</a>";
                 }
                 if($row['type'] == "Explicit"){
                   echo ucwords(strtolower($row['user_name']))." membagikan pengetahuan <b>".
-                  $getKnowledgeDetail['explicit_name']."</b> kepada anda <a href='show_explicit.php?id=".$getKnowledgeDetail['explicit_id']."&ex=".session_id()."'>[ Cek Disini ]</a>";
+                  $getKnowledgeDetail['explicit_name']."</b> kepada anda <a href='show_explicit.php?id=".$getKnowledgeDetail['explicit_id']."&ex=".session_id()."'>[Cek Disini]</a>";
                 }
               ?>
               </td>
