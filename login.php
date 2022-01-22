@@ -36,7 +36,7 @@ if (isset($_POST['login'])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Login | KMS TKJ SMK Negeri 2 Palembang</title>
+  <title>Login KMS | SMK Provinsi Sumatera Selatan</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
 

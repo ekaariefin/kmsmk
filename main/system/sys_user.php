@@ -303,7 +303,7 @@ class user {
 // admin pusat
 	function admin_pusat_guru_list()
 	{
-		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Guru'");
+		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Guru' GROUP BY user_name");
 		while($row = mysqli_fetch_array($data)){
 			$tampil[] = $row;
 		}
@@ -312,7 +312,7 @@ class user {
 
 	function admin_pusat_user_list()
 	{
-		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Siswa'");
+		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_user INNER JOIN db_sekolah ON db_user.npsn = db_sekolah.npsn WHERE user_role = 'Siswa' GROUP BY user_name");
 		while($row = mysqli_fetch_array($data)){
 			$tampil[] = $row;
 		}
