@@ -74,7 +74,7 @@ if(isset($_POST['save_edit_siswa']))
               </tr>
               <tr>
                 <td style="width: 30%;">Nomor Induk Siswa</td>
-                <td style="width: 50%;"><?php echo $user_show['user_id']; ?></td>
+                <td style="width: 50%;"><?php echo $user_show['user_nip']; ?></td>
               </tr>
               <tr>
                 <td>Nama Lengkap</td>

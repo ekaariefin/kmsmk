@@ -96,6 +96,18 @@ class sekolah
         }
     }
 
+    function class_detail($class_id)
+	{
+		$data = mysqli_query($this->conn->koneksi,"SELECT * FROM db_class WHERE class_id='$class_id'");
+		return $data->fetch_array();
+	}
+
+    // melakukan perubahan terhadap data pengguna (admin)
+	function class_edit($class_id, $class_grade, $class_name){
+		$query = mysqli_query($this->conn->koneksi,"UPDATE db_class SET class_grade = '$class_grade', class_name = '$class_name' WHERE class_id = '$class_id'");
+		return TRUE;
+	}
+
     function delete_class($class_id){
         $query = mysqli_query($this->conn->koneksi,"DELETE FROM db_class WHERE class_id = '$class_id'");
         return $query;

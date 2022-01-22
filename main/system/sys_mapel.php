@@ -19,6 +19,13 @@ class mapel {
 		}
 	}
 
+	function mapel_edit ($mapel_id, $mapel_name)
+		{
+			$query_edit = mysqli_query ($this->conn->koneksi,
+				"UPDATE db_mapel SET mapel_name = '$mapel_name'	WHERE mapel_id = '$mapel_id'");
+			return $query_edit;
+		}
+
 	function add_new_mapel($mapel_name, $mapel_desc, $npsn){
 		$query = mysqli_query($this->conn->koneksi,"INSERT INTO db_mapel (mapel_name, mapel_desc, npsn) VALUES ('$mapel_name','$mapel_desc','$npsn')");
 		return $query;

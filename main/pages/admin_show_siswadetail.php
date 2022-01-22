@@ -69,7 +69,7 @@ if (isset($_GET['block'])){
                 <td rowspan="6" style="width: 20%"><img src="files/user_photo/<?php echo $user_show['user_photo']; ?>" style="width: 160px; height: 200px"></td>
               <tr>
                 <td style="width: 30%;">Nomor Induk Siswa</td>
-                <td style="width: 50%;"><?php echo $user_show['user_id']; ?></td>
+                <td style="width: 50%;"><?php echo $user_show['user_nip']; ?></td>
               </tr>
               <tr>
                 <td>Nama Lengkap</td>
@@ -147,9 +147,18 @@ if (isset($_GET['block'])){
               </tr>
               <tr>
                 <td>
-                  <a href="admin_show_siswadetail.php?id=<?php echo $uid; ?>&ex=<?php echo session_id() ?>&block=yes" type="button" class="btn bg-gradient-warning btn-sm" onclick="return confirm('Apakah anda yakin ingin memblokir akun ini ?')">Blokir Akun</a>
-                  <a href="admin_show_siswadetail.php?id=<?php echo $uid; ?>&ex=<?php echo session_id() ?>&block=open" type="button" class="btn bg-gradient-warning btn-sm" onclick="return confirm('Apakah anda yakin ingin membuka blokir akun ini ?')">Buka Akun</a>
-                  <a href="admin_show_siswadetail.php?id=<?php echo $uid; ?>&ex=<?php echo session_id() ?>&delUser=<?php echo $uid; ?>" type="button" class="btn bg-gradient-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus akun ini ?')">Hapus Akun</a></td>
+                  <?php  
+                    if ($user_show['user_role'] == "Blocked"){
+                  ?>
+                      <a href="admin_show_siswadetail.php?id=<?php echo $uid; ?>&ex=<?php echo session_id() ?>&block=open" type="button" class="btn bg-gradient-warning btn-sm" onclick="return confirm('Apakah anda yakin ingin membuka blokir akun ini ?')">Buka Akun</a>
+                  <?php    
+                    }else{
+                    ?>
+                    <a href="admin_show_siswadetail.php?id=<?php echo $uid; ?>&ex=<?php echo session_id() ?>&block=yes" type="button" class="btn bg-gradient-warning btn-sm" onclick="return confirm('Apakah anda yakin ingin memblokir akun ini ?')">Blokir Akun</a>
+                    <?php 
+                    }
+                    ?>
+                    <a href="admin_show_siswadetail.php?id=<?php echo $uid; ?>&ex=<?php echo session_id() ?>&delUser=<?php echo $uid; ?>" type="button" class="btn bg-gradient-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus akun ini ?')">Hapus Akun</a></td>
               </tr>
             </tbody>
           </table>

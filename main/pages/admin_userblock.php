@@ -65,7 +65,7 @@
                         <img class="img-fluid img-circle" src="files/user_photo/<?php echo $row['user_photo']; ?>" style="width: 30px; height: 30px;"></td>
                       </center>
                     </td>
-                    <td><center><?php echo $row['user_id']; ?></center></td>
+                    <td><center><?php echo $row['user_nip']; ?></center></td>
                     <td><?php echo $row['user_name']; ?></td>
                     <td><?php echo $row['user_gender']; ?></td>
                     <td><?php echo $row['class_name']; ?></td>

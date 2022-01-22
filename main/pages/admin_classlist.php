@@ -6,6 +6,19 @@
   $qsekolah = new sekolah();
   $class_list = $qsekolah->class_list($_SESSION['npsn_login']);
 
+  if(isset($_POST['save_edit_class']))
+  {
+    $class_id      = $_POST['class_id'];
+    $class_grade   = $_POST['class_grade'];
+    $class_name    = $_POST['class_name'];
+    if($qsekolah->class_edit($class_id, $class_grade, $class_name)){
+        header('location: admin_classlist.php?ex='.session_id());
+    }
+    else{
+      header('location: admin_classlist.php?ex='.session_id());
+    }
+  }
+
   if(isset($_GET['action'])){
     if($_GET['action'] =='delete'){
       $class_id = $_GET['id'];
@@ -57,10 +70,10 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Grade</th>
-                    <th>Nama Kelas</th>
-                    <th>Aksi</th>                  
+                    <th width="20%">No</th>
+                    <th width="20%">Grade</th>
+                    <th width="40%">Nama Kelas</th>
+                    <th width="20%">Aksi</th>                  
                   </tr>
                   </thead>
                   <tbody>
@@ -78,11 +91,51 @@
                     <td><?php echo $row['class_name']; ?></td>
                     </td>
                     <td><center>
-                        <a href="admin_classlist.php?id=<?php echo $row['class_id']; ?>&action=delete&ex=<?php echo session_id() ?>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash" aria-hidden="true" style="margin-right: 5px"></i>Delete</a></center>
+                      <!-- Button trigger modal -->
+                      <a data-toggle="modal" data-target="#editKelas<?= $row['class_id'];?>" type="button" class="btn btn-sm btn-success" style=" color:white;"><i class="far fa-edit" style="margin-right: 5px"></i> Edit</a>
+                      <a href="admin_classlist.php?id=<?php echo $row['class_id']; ?>&action=delete&ex=<?php echo session_id() ?>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash" aria-hidden="true" style="margin-right: 5px"></i>Delete</a></center>
                     </td>
                   </tr>
+                    <!-- Modal -->
+                  <div class="modal fade" id="editKelas<?= $row['class_id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <form action="" method="POST">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Edit Kelas</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <?php 
+                            $class_detail = $qsekolah->class_detail($row['class_id']);
+                          ?>
+                            <div class="form-group row">
+                              <label for="grade" class="col-sm-3 col-form-label">Grade</label>
+                              <div class="col-sm-9">
+                                <input type="text" hidden value="<?= $class_detail['class_id'] ?>" name="class_id">
+                                <input type="text" class="form-control-plaintext" id="grade" value="<?= $class_detail['class_grade'] ?>" name="class_grade">
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label for="name_class" class="col-sm-3 col-form-label">Nama Kelas</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control-plaintext" id="name_class" value="<?= $class_detail['class_name'] ?>" name="class_name">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="save_edit_class" class="btn btn-success" ><i class="far fa-save" style="margin-right: 5px"></i> Simpan</button>   
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                   <?php
-                    }}
+                    }
+                  }
                   ?>
                   </tbody>
                   <tfoot>

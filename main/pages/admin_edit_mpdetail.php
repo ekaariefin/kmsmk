@@ -3,17 +3,26 @@ session_start();
 // error_reporting(0);
 include_once('security/session_check.php');
 include_once('../system/sys_user.php');
+include_once('../system/sys_mapel.php');
 include_once('../system/sys_other.php');
 $qother = new other();
+$qmapel = new mapel();
 $mpid = $_GET['id'];
 $mapel_show = $qother->mp_detail($mpid);
 
-if (isset($_GET['delUser']))
-{
-  if($quser->guru_delete($_GET['delUser'])){
-    header('location:admin_gurulist.php?ex='.session_id().'');
+if(isset($_POST['save_edit_mp']))
+  {
+    $mapel_id      = $_POST['mapel_id'];
+    $mapel_name    = $_POST['mapel_name'];
+    if($qmapel->mapel_edit($mapel_id, $mapel_name)){
+        // echo $mapel_id, $mapel_name;
+        // exit();
+        header('location: admin_show_mpdetail.php?id='.$mapel_show['mapel_id'].'&ex='.session_id());
+    }
+    else{
+      header('location: admin_show_mpdetail.php?id='.$mapel_show['mapel_id'].'&ex='.session_id());
+    }
   }
-}
 
 ?>
 <!DOCTYPE html>
@@ -51,11 +60,11 @@ if (isset($_GET['delUser']))
         <div class="card-body">
           
           <table class="table table-bordered" style="margin-bottom: 30px">
+            <form action="" method="POST">
             <tbody>
               <tr>
                 <div style="position: relative; float:right; margin-bottom: 10px">
-                  <a href="admin_edit_mpdetail.php?id=<?php echo $mapel_show['mapel_id']; ?>&ex=<?php echo session_id() ?>" type="button" class="btn btn-sm btn-info" style="width: 90px"><i class="far fa-edit" style="margin-right: 5px"></i> Edit</a>
-                  <a href="admin_mplist.php?&ex=<?php echo session_id() ?>&delmapel=<?php echo $mapel_show['mapel_id']; ?>" type="button" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus mata pelajaran ini, dengan menghapus mata pelajaran ini seluruh knowledge yang terekam dapat terhapus ?')" style="width: 100px"><i class="far fa-trash-alt" style="margin-right: 5px"></i> Delete</a>
+                    <button type="submit" name="save_edit_mp" class="btn btn-sm btn-success" style="width: 90px"><i class="far fa-save" style="margin-right: 5px"></i> Simpan</button>   
                 </div>
               </tr>
               <tr>
@@ -64,7 +73,7 @@ if (isset($_GET['delUser']))
               </tr>
               <tr>
                 <td>Nama Mata Pelajaran</td>
-                <td><?php echo $mapel_show['mapel_name']; ?></td>
+                <td><input type="text" class="form-control" value="<?php echo $mapel_show['mapel_name']; ?>" name="mapel_name"></td>
               </tr>
               <tr>
                 <td>Jumlah Tacit Knowledge</td>
@@ -83,15 +92,13 @@ if (isset($_GET['delUser']))
                 </td>
               </tr>
             </tbody>
+            <input type="hidden" class="form-control" value="<?php echo $mapel_show['mapel_id']; ?>" name="mapel_id" >
+
+            </form>
           </table>
 
           <table class="table table-bordered" style="margin-bottom: 30px">
             <tbody>
-              <tr>
-                <div class="alert alert-info" role="alert">
-                  Untuk menambahkan guru yang mengajar hanya dapat dilakukan melalui Menu Kelola Akun Guru yang bersangkutan!
-                </div>
-              </tr>
               <tr>
                 <td colspan="3"><center><b>GURU YANG MENGAJAR</b></center></td>
               </tr>
