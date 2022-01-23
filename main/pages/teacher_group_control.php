@@ -75,7 +75,7 @@
                   <td><center><?php echo $qother->count_group_user($row['group_id']) ?></center></td>
                   <td>
                     <center>
-                      <a href="show_group_detail.php?gid=<?php echo $row['group_id'] ?>&ex=<?php echo session_id(); ?>" type="button" class="btn btn-block btn-success">Lihat Grup</a>
+                      <a href="teacher_show_group_detail.php?gid=<?php echo $row['group_id'] ?>&ex=<?php echo session_id(); ?>" type="button" class="btn btn-block btn-success">Lihat Grup</a>
                     </center>
                   </td>
                 </tr>

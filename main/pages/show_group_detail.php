@@ -7,6 +7,17 @@ include_once('../system/sys_other.php');
 $qother = new other();
 $gid = $_GET['gid'];
 $group_show = $qother->group_detail($gid);
+
+if (isset($_GET['action'])){
+  if($_GET['action'] == 'left_group'){
+    if($qother->kick_siswa($_GET['id'],$gid)){
+      echo "<script LANGUAGE='JavaScript'>
+            window.alert('Berhasil Meninggalkan Grup!');
+            window.location.href='my_group.php?ex=".session_id()."';
+            </script>";
+    }
+  }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,6 +44,13 @@ $group_show = $qother->group_detail($gid);
           
           <table class="table table-bordered" style="margin-bottom: 30px">
             <tbody>
+              <tr>
+                <div style="position: relative; float:right; margin-bottom: 10px">
+                  <a href="show_group_detail.php?id=<?= $_SESSION['user_id']; ?>&action=left_group&gid=<?= $_GET['gid'] ?>&ex=<?= session_id() ?>" class="btn btn-block btn-danger btn-sm" style="width: 150px;margin-bottom:10px" onclick="return confirm('Apakah anda yakin ingin keluar dari grup ini ?')" >
+                  <i class="fas fa-sign-out-alt" style="margin-right: 10px;"></i>Tinggalkan Grup
+                </a>
+                </div>
+              </tr>
               <tr>
                 <td style="width: 30%;">Group Code</td>
                 <td style="width: 50%;"><?php echo $group_show['group_code']; ?></td>
@@ -63,19 +81,22 @@ $group_show = $qother->group_detail($gid);
           </table>
 
           <table class="table table-bordered" style="margin-bottom: 30px">
+          
             <tbody>
+              
               <tr>
-                <td colspan="4"><center><b>SISWA YANG TERGABUNG DI GRUP</b></center></td>
+                <td colspan="5"><center><b>SISWA YANG TERGABUNG DI GRUP</b></center></td>
               </tr>
               <tr>
                 <td><b><center>No.</center></b></td>
                 <td><b><center></center></b></td>
                 <td><b>Nama Siswa</b></td>
                 <td><b>Kelas</b></td>
+
               </tr>
               <?php
                 if($qother->get_group_member($gid) == "No Data"){
-                 echo "<tr><td colspan='4'>Belum ada yang bergabung!</td></tr>";
+                 echo "<tr><td colspan='5'>Belum ada yang bergabung!</td></tr>";
                 }
                 else{
                   $no = 1;

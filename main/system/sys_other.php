@@ -525,6 +525,11 @@ class other {
 			}
 	}
 
+	function kick_siswa($user_id,$gid){
+		$query = mysqli_query($this->conn->koneksi,"DELETE FROM db_group_trans WHERE group_id='$gid' AND user_id = '$user_id' ");
+		return $query;
+	}
+
 }
 
 ?>
