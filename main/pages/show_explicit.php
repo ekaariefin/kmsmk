@@ -207,7 +207,10 @@ $explicit_id = $_GET['id'];
               </div>
               <div class="card-footer">
                 <form action="#" method="post">
-                  <img class="img-fluid img-circle img-sm" src="../dist/img/avatar5.png" alt="Alt Text">
+                  <?php
+                    $user_get = $quser->user_get_photo($_SESSION['user_id']);
+                  ?>
+                  <img class="img-fluid img-circle img-sm" src="files/user_photo/<?php echo $user_get['user_photo']; ?>" alt="Alt Text">
                   <!-- .img-push is used to add margin to elements next to floating images -->
                   <div class="img-push">
                      <input type="text" class="form-control" name="comment_desc" style="width: 80%;position: relative;float: left;margin-right: 10px;" placeholder="Tulis komentar disini...">
