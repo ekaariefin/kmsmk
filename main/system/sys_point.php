@@ -216,13 +216,14 @@ class point {
 		return $query;
 	}
 
-	function addPointExplicit($explicit_id,$user_id){
+	function addPointExplicit($explicit_id,$user_id,$point_score){
 		$sql = mysqli_query($this->conn->koneksi, "SELECT user_id FROM db_explicit WHERE explicit_id = '$explicit_id'");
 		while ($row = $sql->fetch_assoc()) {
-			$owner = $row['user_id'];
-			date_default_timezone_set('Asia/Jakarta');
-			$date = date('d-m-Y H:i:s');
-   			 $query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified) VALUES ('$date','10302','$owner','$user_id')");
+		$owner = $row['user_id'];
+		date_default_timezone_set('Asia/Jakarta');
+		$date = date('d-m-Y H:i:s');
+
+		$query = mysqli_query($this->conn->koneksi, "INSERT INTO db_point_trans (trans_date, point_id, user_id, trans_verified, total_point) VALUES ('$date','10302','$owner','$user_id', '$point_score')");
 		}
 		return $query;
 	}

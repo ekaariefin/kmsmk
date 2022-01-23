@@ -26,10 +26,10 @@
             </script>");
      }
      else if ($_GET['action'] == "setApproval"){
-    $qexplicit->setApproval($_GET['id']);
+        $qexplicit->setApproval($_GET['id']);
         $add_explicit_point = $qpoint->get_point_score(10302);
         $add_explicit_point_score = $add_explicit_point['point_score'];
-        $qpoint->addPointExplicit($_GET['id'],$_SESSION['user_id'],$add_explicit_point_score);
+        $qpoint->addPointexplicit($_GET['id'],$_SESSION['user_id'],$add_explicit_point_score);
         // melakukan pengecekan terhadap mission yang tergabung oleh siswa
 
         if ($qmp->check_join_missions($_GET['publisher_id'])){
@@ -50,7 +50,7 @@
             $qmp->set_status_misi_selesai($mission_id,$_GET['publisher_id']);
             echo ("<script LANGUAGE='JavaScript'>
             window.alert('Knowledge berhasil disetujui dan siswa berhasil menyelesaikan misi yang tergabung!');
-            window.location.href='#';
+            window.location.href='admin_show_pend_explicit.php?ex=".session_id()."';
             </script>");
           }
           else if ($total_kontribusi < $target){
@@ -58,16 +58,20 @@
             $qmp->tambah_nilai_kontribusi_mission($mission_id, $_GET['publisher_id'], $total_kontribusi);
             echo ("<script LANGUAGE='JavaScript'>
             window.alert('Pengetahuan terhitung sebagai kelengkapan Misi pada akun siswa');
-            window.location.href='#';
+            window.location.href='admin_show_pend_explicit.php?ex=".session_id()."';
             </script>");
           }
         }
         echo ("<script LANGUAGE='JavaScript'>
             window.alert('Knowledge berhasil disetujui dan siswa berhasil mendapat poin!');
-            window.location.href='#';
+            window.location.href='admin_show_pend_explicit.php?ex=".session_id()."';
             </script>");
     }
+
+    
   }
+
+?>
   
 ?>
 
